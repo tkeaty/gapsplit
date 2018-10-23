@@ -11,7 +11,6 @@ def sample(fname, n_points, lower_bounds=None, upper_bounds=None, n_update=100, 
     model = read(fname)
     model.setParam('OutputFlag', False)
     n_reactions = len(model.getVars())
-    n_secondary = int(n_reactions*.05)
     
     sys.stdout.write("Generating warmup points...")
     
