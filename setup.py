@@ -10,7 +10,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 setup(
 
     name='gapsplit',
-    version='1.0.0',
+    version='1.1.0',
     description='A sampling algorithm for convex and non-convex metabolic models',
     long_description=long_description,
     long_description_content_type='text/x-rst',

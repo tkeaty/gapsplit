@@ -2,7 +2,6 @@ import random
 import numpy as np
 from gurobipy import *
 from time import time
-import matplotlib.pyplot as plt
 
 
 def sample(fname, n_points, lower_bounds=None, upper_bounds=None, n_update=100, n_secondary=0):
@@ -34,7 +33,7 @@ def sample(fname, n_points, lower_bounds=None, upper_bounds=None, n_update=100, 
         elif rxn_range > 1e-9:
             unblocked.append((rxn, i))
 
-ind_count = 0
+    ind_count = 0
     mi_flag = False
     
     while pt_count < n_points:
@@ -58,11 +57,11 @@ ind_count = 0
             random_indices = random.sample(xrange(len(cts_unblocked)), 1)
             mi_flag = False
 
-for secondary_key in random_indices:
-    
-    (secondary_rxn, secondary_ind) = unblocked[secondary_key]
-    target = __get_target(samples, secondary_ind, secondary_rxn.VType, lower_bounds, reaction_ranges)
-    objective.add((secondary_rxn-target)*(secondary_rxn-target)/square_ranges[secondary_ind])
+        for secondary_key in random_indices:
+
+            (secondary_rxn, secondary_ind) = unblocked[secondary_key]
+            target = __get_target(samples, secondary_ind, secondary_rxn.VType, lower_bounds, reaction_ranges)
+            objective.add((secondary_rxn-target)*(secondary_rxn-target)/square_ranges[secondary_ind])
         
         model.setObjective(objective, GRB.MINIMIZE)
         model.update()
@@ -85,7 +84,7 @@ for secondary_key in random_indices:
         if n_update > 0 and (pt_count % n_update) == 0:
             sys.stdout.write("\rSamples: %s\tCoverage: %s" % (pt_count, __get_coverage(samples, reaction_ranges, model.getVars())))
 
-return samples
+    return samples
 
 
 def __get_target(points, ind, v_type, mins, ranges):
@@ -111,7 +110,7 @@ def __get_target(points, ind, v_type, mins, ranges):
                 target = v
                 target_freq = len(np.where(rxn_samples == v)[0])
 
-return target
+    return target
 
 
 def __get_coverage(samples, ranges, rxns):
@@ -133,7 +132,7 @@ def __get_coverage(samples, ranges, rxns):
             coverage += max_gap/rxn_range
             n += 1
 
-coverage = 1 - coverage/n
+    coverage = 1 - coverage/n
     return coverage
 
 
@@ -157,8 +156,8 @@ def __fva(model):
         model.optimize()
         mins[i] = model.objVal
 
-for i in range(len(maxes)):
-    if maxes[i] == -0.0:
-        maxes[i] = 0.0
+    for i in range(len(maxes)):
+        if maxes[i] == -0.0:
+            maxes[i] = 0.0
     
     return maxes, mins

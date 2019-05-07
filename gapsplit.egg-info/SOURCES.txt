@@ -1,0 +1,7 @@
+README.rst
+setup.py
+gapsplit.egg-info/PKG-INFO
+gapsplit.egg-info/SOURCES.txt
+gapsplit.egg-info/dependency_links.txt
+gapsplit.egg-info/requires.txt
+gapsplit.egg-info/top_level.txt
